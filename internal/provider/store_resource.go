@@ -90,7 +90,7 @@ func (r *storeResource) Create(ctx context.Context, req resource.CreateRequest, 
 
 	tflog.Info(ctx, fmt.Sprintf("Create a store with name %s", data.Name.ValueString()))
 
-	createdStore, err := r.client.CreateStore(data.Name.ValueString())
+	createdStore, err := r.client.CreateStore(ctx, data.Name.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Client Error",
@@ -125,7 +125,7 @@ func (r *storeResource) Read(ctx context.Context, req resource.ReadRequest, resp
 	tflog.Info(ctx, fmt.Sprintf("Read a store with id %s", data.ID.ValueString()))
 
 	// Retrieve the store using the GetStore method
-	store, err := r.client.GetStore(data.ID.String())
+	store, err := r.client.GetStore(ctx, data.ID.String())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Client Error",
@@ -175,7 +175,7 @@ func (r *storeResource) Delete(ctx context.Context, req resource.DeleteRequest, 
 
 	tflog.Info(ctx, fmt.Sprintf("Delete an store with id %s", data.ID.ValueString()))
 
-	err := r.client.DeleteStore(data.ID.ValueString())
+	err := r.client.DeleteStore(ctx, data.ID.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Client Error",
