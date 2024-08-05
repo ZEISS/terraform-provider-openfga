@@ -1,0 +1,52 @@
+package sdk
+
+import (
+	"context"
+	"encoding/json"
+
+	openfga "github.com/openfga/go-sdk/client"
+	"github.com/zeiss/pkg/cast"
+)
+
+// AuthorizationModel ...
+type AuthorizationModel struct {
+	ID string `json:"id,omitempty"`
+}
+
+// CreateModel ...
+func (c *Client) CreateModel(ctx context.Context, id, spec string) (*AuthorizationModel, error) {
+	var body openfga.ClientWriteAuthorizationModelRequest
+	if err := json.Unmarshal([]byte(spec), &body); err != nil {
+		return nil, err
+	}
+
+	resp, err := c.fga.WriteAuthorizationModel(ctx).Options(openfga.ClientWriteAuthorizationModelOptions{StoreId: cast.Ptr(id)}).Body(body).Execute()
+	if err != nil {
+		return nil, err
+	}
+
+	model := AuthorizationModel{
+		ID: resp.AuthorizationModelId,
+	}
+
+	return cast.Ptr(model), nil
+}
+
+// GetAuthorizationModel ...
+func (c *Client) GetAuthorizationModel(ctx context.Context, id string) (*AuthorizationModel, error) {
+	resp, err := c.fga.ReadAuthorizationModel(ctx).Options(openfga.ClientReadAuthorizationModelOptions{AuthorizationModelId: cast.Ptr(id)}).Execute()
+	if err != nil {
+		return nil, err
+	}
+
+	model := AuthorizationModel{
+		ID: resp.AuthorizationModel.GetId(),
+	}
+
+	return cast.Ptr(model), nil
+}
+
+// DeleteAuthorizationModel ...
+func (c *Client) DeleteAuthorizationModel(ctx context.Context, id string) error {
+	return nil
+}

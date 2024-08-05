@@ -90,6 +90,7 @@ func (p *openfgaProvider) Configure(ctx context.Context, req provider.ConfigureR
 func (p *openfgaProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		NewStoreResource,
+		NewModelResource,
 	}
 }
 

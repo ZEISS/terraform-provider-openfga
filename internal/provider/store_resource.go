@@ -125,16 +125,16 @@ func (r *storeResource) Read(ctx context.Context, req resource.ReadRequest, resp
 	tflog.Info(ctx, fmt.Sprintf("Read a store with id %s", data.ID.ValueString()))
 
 	// Retrieve the store using the GetStore method
-	store, err := r.client.GetStore(ctx, data.ID.String())
+	store, err := r.client.GetStore(ctx, data.ID.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Client Error",
-			fmt.Sprintf("Unable to read environment, got error: %s", err.Error()),
+			fmt.Sprintf("Unable to read store, got error: %s", err.Error()),
 		)
 		return
 	}
 
-	// Update the data model with the retrieved environment information
+	// Update the data model with the retrieved store information
 	data.Name = types.StringValue(store.Name)
 
 	// Save updated data into Terraform state
@@ -184,7 +184,7 @@ func (r *storeResource) Delete(ctx context.Context, req resource.DeleteRequest, 
 		return
 	}
 
-	tflog.Info(ctx, fmt.Sprintf("Environment with id %s got deleted", data.ID.ValueString()))
+	tflog.Info(ctx, fmt.Sprintf("Store with id %s got deleted", data.ID.ValueString()))
 }
 
 func (r *storeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {

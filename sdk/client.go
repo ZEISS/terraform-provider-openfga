@@ -26,11 +26,3 @@ func NewClient(apiURL string) (*Client, error) {
 		fga: fga,
 	}, nil
 }
-
-// Store ...
-type Store struct {
-	// ID ...
-	ID string `json:"id,omitempty"`
-	// Name ...
-	Name string `json:"name,omitempty"`
-}
