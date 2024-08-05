@@ -4,7 +4,7 @@
 code="provider_installation {
 
   dev_overrides {
-      \"registry.terraform.io/zeiss/terraform-provider-openfga\" = \"$(go env GOBIN)\"
+      \"registry.terraform.io/zeiss/openfga\" = \"$(go env GOPATH)/bin\"
   }
 
   # For all other providers, install them directly from their origin provider
@@ -17,3 +17,4 @@ code="provider_installation {
 echo "$code" > ~/.terraformrc
 
 go build main.go
+mv main $(go env GOPATH)/bin/terraform-provider-openfga

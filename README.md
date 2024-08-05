@@ -1,27 +1,13 @@
-# :partying_face: Template Go
+# Terraform Provider OpenFGA
 
-> This is a GitHub Template Repository. You can use the green button to create a new repository based on this template. Read more about [GitHub Template Repositories](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template).
+## Development
 
-## Get Started
+Run the following command to build the provider
 
-This template supports `Makefile` to run tooling.
-
-> `make` is choosen as it is available on most systems.
-
-```bash
-# show `help`
-make help
+```shell
+sh ./scripts/setupDev.sh
 ```
 
-Other available targets are
+## License
 
-* `build`
-* `fmt`
-* `lint`
-* `vet`
-* `generate`
-* `clean`
-
-The convention is to use `make` to run the build.
-
-Happy coding!
+[MIT](/LICENSE)

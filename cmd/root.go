@@ -52,7 +52,7 @@ func NewProvider(cfg *cfg.Config) *Provider {
 func (s *Provider) Start(ctx context.Context, ready server.ReadyFunc, run server.RunFunc) func() error {
 	return func() error {
 		opts := providerserver.ServeOpts{
-			Address: "registry.terraform.io/clivern/lynx",
+			Address: "registry.terraform.io/zeiss/openfga",
 			Debug:   s.cfg.Flags.Debug,
 		}
 

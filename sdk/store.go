@@ -8,13 +8,28 @@ import (
 )
 
 // CreateStore ...
-func (c *Client) CreateStore(store Store) (*Store, error) {
-	resp, err := c.fga.CreateStore(context.Background()).Body(openfga.ClientCreateStoreRequest{Name: store.Name}).Execute()
+func (c *Client) CreateStore(name string) (*Store, error) {
+	resp, err := c.fga.CreateStore(context.Background()).Body(openfga.ClientCreateStoreRequest{Name: name}).Execute()
 	if err != nil {
 		return nil, err
 	}
 
-	store = Store{
+	store := Store{
+		ID:   resp.GetId(),
+		Name: resp.GetName(),
+	}
+
+	return cast.Ptr(store), nil
+}
+
+// GetStore ...
+func (c *Client) GetStore(id string) (*Store, error) {
+	resp, err := c.fga.GetStore(context.Background()).Options(openfga.ClientGetStoreOptions{StoreId: cast.Ptr(id)}).Execute()
+	if err != nil {
+		return nil, err
+	}
+
+	store := Store{
 		ID:   resp.GetId(),
 		Name: resp.GetName(),
 	}
@@ -23,8 +38,8 @@ func (c *Client) CreateStore(store Store) (*Store, error) {
 }
 
 // DeleteStore ...
-func (c *Client) DeleteStore(store Store) error {
-	_, err := c.fga.DeleteStore(context.Background()).Options(openfga.ClientDeleteStoreOptions{StoreId: cast.Ptr(store.ID)}).Execute()
+func (c *Client) DeleteStore(id string) error {
+	_, err := c.fga.DeleteStore(context.Background()).Options(openfga.ClientDeleteStoreOptions{StoreId: cast.Ptr(id)}).Execute()
 	if err != nil {
 		return err
 	}
