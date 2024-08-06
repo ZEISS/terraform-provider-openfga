@@ -22,7 +22,7 @@ builds:
       - arm
       - arm64
     ldflags:
-      - -s -w
+      - -s -w -X cmd.version={{.Version}}
     no_unique_dist_dir: true
 
 archives:

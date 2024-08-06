@@ -26,6 +26,7 @@ func init() {
 }
 
 var Root = &cobra.Command{
+	Version: version,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		p := NewProvider(config)
 
