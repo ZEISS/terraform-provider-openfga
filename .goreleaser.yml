@@ -1,13 +1,42 @@
+project_name: terraform-provider-openfga
+
+env:
+  - GO111MODULE=on
+  - CGO_ENABLED=0
+
 before:
   hooks:
     - go mod tidy
+    - go mod download
 builds:
-  - skip: true
+  - id: main
+    binary: terraform-provider-openfga
+    main: ./main.go
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - 386
+      - amd64
+      - arm
+      - arm64
+    ldflags:
+      - -s -w
+    no_unique_dist_dir: true
+
+archives:
+  - id: main
+    builds:
+      - main
+    name_template: "terraform_provider_openfga_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
 release:
   header: |
     ## Changelog ({{ .Date }})
-    
+
     Welcome to this new release! We hope you enjoy the changes we've made.
+
 changelog:
   groups:
     - title: Features
@@ -24,3 +53,12 @@ changelog:
       - "^docs:"
       - typo
       - (?i)foo
+
+gomod:
+  proxy: true
+
+checksum:
+  name_template: "{{ .ProjectName }}_checksums.txt"
+
+snapshot:
+  name_template: SNAPSHOT-{{.ShortCommit}}
