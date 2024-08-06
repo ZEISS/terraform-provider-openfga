@@ -20,3 +20,14 @@ resource "openfga_model" "demo" {
     id = openfga_store.demo.id
   }
 }
+
+resource "openfga_tuple" "demo" {
+  user     = "user:demo"
+  relation = "reader"
+  document = "document:demo"
+
+  store = {
+    id    = openfga_store.demo.id
+    model = openfga_model.demo.id
+  }
+}

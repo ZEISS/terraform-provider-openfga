@@ -138,7 +138,7 @@ func (r *modelResource) Read(ctx context.Context, req resource.ReadRequest, resp
 	tflog.Info(ctx, fmt.Sprintf("Read a model with id %s", data.ID.ValueString()))
 
 	// Retrieve the model using the GetModel method
-	model, err := r.client.GetAuthorizationModel(ctx, data.ID.ValueString())
+	model, err := r.client.GetAuthorizationModel(ctx, data.Store.ID.ValueString(), data.ID.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Client Error",

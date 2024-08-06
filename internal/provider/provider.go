@@ -91,6 +91,7 @@ func (p *openfgaProvider) Resources(ctx context.Context) []func() resource.Resou
 	return []func() resource.Resource{
 		NewStoreResource,
 		NewModelResource,
+		NewTupleResource,
 	}
 }
 

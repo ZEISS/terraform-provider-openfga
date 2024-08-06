@@ -33,17 +33,17 @@ func (c *Client) CreateModel(ctx context.Context, id, spec string) (*Authorizati
 }
 
 // GetAuthorizationModel ...
-func (c *Client) GetAuthorizationModel(ctx context.Context, id string) (*AuthorizationModel, error) {
-	resp, err := c.fga.ReadAuthorizationModel(ctx).Options(openfga.ClientReadAuthorizationModelOptions{AuthorizationModelId: cast.Ptr(id)}).Execute()
+func (c *Client) GetAuthorizationModel(ctx context.Context, store, model string) (*AuthorizationModel, error) {
+	resp, err := c.fga.ReadAuthorizationModel(ctx).Options(openfga.ClientReadAuthorizationModelOptions{StoreId: cast.Ptr(store), AuthorizationModelId: cast.Ptr(model)}).Execute()
 	if err != nil {
 		return nil, err
 	}
 
-	model := AuthorizationModel{
+	authModel := AuthorizationModel{
 		ID: resp.AuthorizationModel.GetId(),
 	}
 
-	return cast.Ptr(model), nil
+	return cast.Ptr(authModel), nil
 }
 
 // DeleteAuthorizationModel ...
