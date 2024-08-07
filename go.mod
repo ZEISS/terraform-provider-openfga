@@ -5,7 +5,7 @@ go 1.22.5
 require (
 	github.com/golang/mock v1.6.0
 	github.com/golangci/golangci-lint v1.59.1
-	github.com/hashicorp/terraform-plugin-framework v1.10.0
+	github.com/hashicorp/terraform-plugin-framework v1.11.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/openfga/go-sdk v0.5.0
 	github.com/spf13/cobra v1.8.1
