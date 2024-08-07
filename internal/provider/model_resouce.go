@@ -10,7 +10,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
@@ -66,9 +65,7 @@ func (r *modelResource) Schema(ctx context.Context, req resource.SchemaRequest, 
 			"id": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "Model identifier",
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
+				PlanModifiers:       []planmodifier.String{},
 			},
 		},
 	}
@@ -164,7 +161,24 @@ func (r *modelResource) Update(ctx context.Context, req resource.UpdateRequest, 
 		return
 	}
 
-	tflog.Info(ctx, fmt.Sprintf("Update a model with id %s", data.ID))
+	tflog.Info(ctx, fmt.Sprintf("Update a model with id %s", data.ID.ValueString()))
+
+	updatedModel, err := r.client.UpdateModel(ctx, data.Store.ID.ValueString(), data.Spec.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Client Error",
+			fmt.Sprintf("Unable to update model, got error: %s", err.Error()),
+		)
+		return
+	}
+
+	// Set the updated models's ID in the Terraform state
+	data.ID = types.StringValue(updatedModel.ID)
+
+	// Save data into Terraform state
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+
+	tflog.Info(ctx, fmt.Sprintf("Updated a model with id %s", data.ID))
 }
 
 func (r *modelResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
@@ -172,6 +186,12 @@ func (r *modelResource) Delete(ctx context.Context, req resource.DeleteRequest, 
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	tflog.Info(ctx, fmt.Sprintf("Deleted with id %s got deleted", data.ID.ValueString()))
 }
 
 func (r *modelResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
