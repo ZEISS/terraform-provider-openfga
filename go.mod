@@ -10,7 +10,7 @@ require (
 	github.com/openfga/go-sdk v0.5.0
 	github.com/spf13/cobra v1.8.1
 	github.com/zeiss/pkg v0.1.7
-	mvdan.cc/gofumpt v0.6.0
+	mvdan.cc/gofumpt v0.7.0
 )
 
 require (
