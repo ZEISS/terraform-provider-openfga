@@ -9,7 +9,7 @@ require (
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/openfga/go-sdk v0.6.1
 	github.com/spf13/cobra v1.8.1
-	github.com/zeiss/pkg v0.1.8
+	github.com/zeiss/pkg v0.1.9
 	mvdan.cc/gofumpt v0.7.0
 )
 
