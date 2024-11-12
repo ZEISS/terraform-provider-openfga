@@ -59,6 +59,19 @@ Run the following command to build the provider
 sh ./scripts/setupDev.sh
 ```
 
+Setup [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) and run the following command to test the provider
+
+```shell
+terraform init
+```
+
+Go to `./examples` and run the following command to test the provider
+
+```bash
+terraform plan
+terraform apply
+```
+
 ## License
 
 [MIT](/LICENSE)
