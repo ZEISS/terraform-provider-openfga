@@ -4,7 +4,7 @@ go 1.22.5
 toolchain go1.23.5
 
 require (
-	github.com/hashicorp/terraform-plugin-framework v1.14.0
+	github.com/hashicorp/terraform-plugin-framework v1.14.1
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/openfga/go-sdk v0.6.5
 	github.com/spf13/cobra v1.9.1
