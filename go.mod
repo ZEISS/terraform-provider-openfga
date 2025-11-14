@@ -6,7 +6,7 @@ toolchain go1.24.1
 
 require (
 	github.com/hashicorp/terraform-plugin-framework v1.16.1
-	github.com/hashicorp/terraform-plugin-log v0.9.0
+	github.com/hashicorp/terraform-plugin-log v0.10.0
 	github.com/openfga/go-sdk v0.7.3
 	github.com/spf13/cobra v1.10.1
 	github.com/zeiss/pkg v0.1.23
