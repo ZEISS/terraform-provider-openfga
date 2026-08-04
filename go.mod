@@ -4,7 +4,7 @@ go 1.26.3
 
 require (
 	github.com/hashicorp/terraform-plugin-framework v1.19.0
-	github.com/hashicorp/terraform-plugin-log v0.10.0
+	github.com/hashicorp/terraform-plugin-log v0.11.0
 	github.com/openfga/go-sdk v0.8.2
 	github.com/spf13/cobra v1.10.2
 	github.com/zeiss/pkg v0.2.0
